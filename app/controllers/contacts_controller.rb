@@ -18,4 +18,13 @@ class ContactsController < ApplicationController
 		contact_id = params[:id]
 		@contact = Contact.find(contact_id)
 	end
+	def destroy
+		@my_contact = Contact.find params[:id]
+		if @my_contact.destroy
+			flash[:notice] = "Your contact was deleted."
+			redirect_to contacts_path
+		else
+			flash.now[:alert] = "There was an error deleting the contact. Please try again."
+		end
+	end	
 end
