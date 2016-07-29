@@ -1,5 +1,13 @@
 <h1>Add a new contact</h1>
 
+<% if @contact.errors.any? %>
+	<ul>
+		<% @contact.errors.full_messages.each do |message| %>
+			<li><%= message %></li>
+		<% end %>
+	</ul>
+<% end %>
+
 <form action="/contacts" method="POST">
 	<div>
 		<label for="contact_name">Name</label>

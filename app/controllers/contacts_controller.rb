@@ -3,16 +3,20 @@ class ContactsController < ApplicationController
 		@contacts = Contact.order(name: :asc)
 	end
 	def new
+		@contact = Contact.new
 	end
 	def create
-		contact = Contact.new(
+		@contact = Contact.new(
 			:name => params[:contact][:name],
 			:address => params[:contact][:address],
 			:phone => params[:contact][:phone],
 			:email => params[:contact][:email]
 			)
-		contact.save
-		redirect_to("/contacts")
+		if @contact.save
+			redirect_to contacts_path
+		else
+			render "new"
+		end
 	end
 	def show
 		contact_id = params[:id]
